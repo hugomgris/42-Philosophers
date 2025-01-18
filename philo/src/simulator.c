@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/17 18:05:15 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:31:22 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ph_eat_and_sleep(t_philo *philo)
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_meal_time = ph_get_time();
 	pthread_mutex_unlock(&philo->meal_lock);
+	ph_sleep(philo->table, philo->table->t_eat);
 	if (ph_check_simulation_end(philo->table) == false)
 	{
 		pthread_mutex_lock(&philo->meal_lock);

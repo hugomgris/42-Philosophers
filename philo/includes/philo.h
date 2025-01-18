@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/17 18:03:44 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:12:35 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_table
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	stop_lock;
 	t_philo			**philos;
+	pthread_t		observer;
 }	t_table;
 
 typedef enum e_status
@@ -102,7 +103,8 @@ void			ph_init_table_vars(char **argv, t_table *table);
 bool			ph_init_mutexes(t_table *table);
 void			ph_give_forks(t_philo *philo);
 pthread_mutex_t	*ph_init_forks(t_table *table);
-int				ph_start(t_table *table);
+bool			ph_start(t_table *table);
+void			ph_stop(t_table *table);
 
 //THREADER functions
 bool			ph_create_threads(t_table *table);
@@ -111,6 +113,7 @@ void			ph_join_threads(t_table *table);
 //EXITING functions
 void			ph_error(const char *msg, t_table *table);
 void			ph_cleanup_table(t_table *table);
+void			ph_cleanup_mutexes(t_table *table);
 void			ph_exit(t_table *table);
 
 //TIMER functions
@@ -122,6 +125,7 @@ void			ph_process_status(t_philo *philo, bool death, t_status status);
 void			ph_print_status(t_philo *philo, char *status);
 
 //OBSERVER functions
+void			*ph_observer(void *arg);
 bool			ph_check_simulation_end(t_table *table);
 
 //SIMULATION function

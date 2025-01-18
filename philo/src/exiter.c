@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/17 17:00:43 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:11:50 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 void	ph_exit(t_table *table)
 {
+	ph_cleanup_mutexes(table);
+	ph_cleanup_table(table);
+	exit(0);
+}
+
+void	ph_cleanup_mutexes(t_table *table)
+{
 	int	i;
 
-	if (!table)
-		return ;
 	i = 0;
 	while (i < table->n_philos)
 	{
-		pthread_mutex_destroy(&table->philos[i]->meal_lock);
 		pthread_mutex_destroy(&table->f_locks[i]);
+		pthread_mutex_destroy(&table->philos[i]->meal_lock);
 		i++;
 	}
 	pthread_mutex_destroy(&table->print_lock);
 	pthread_mutex_destroy(&table->stop_lock);
-	ph_cleanup_table(table);
 }
 
 void	ph_cleanup_table(t_table *table)

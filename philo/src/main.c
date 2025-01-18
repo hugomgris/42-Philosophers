@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/17 17:47:54 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/18 11:12:38 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,28 @@ void	ph_arg_error(void)
 	write(2, error, ph_strlen(error));
 }
 
-int	ph_start(t_table *table)
+bool	ph_start(t_table *table)
 {
-	//int	i;
-
 	table->t_start = ph_get_time() + (table->n_philos * 2 * 10);
 	if (!ph_create_threads(table))
 		return (false);
-	//Create observer thread here if n_philos > 1
+	if (table->n_philos > 1)
+	{
+		if (pthread_create(&table->observer, NULL, &ph_observer, table) != 0)
+		{
+			ph_error(THREAD_ERR, table);
+			return (false);
+		}
+	}
 	return (true);
+}
+
+void	ph_stop(t_table *table)
+{
+	ph_join_threads(table);
+	if (table->n_philos > 1)
+		pthread_join(table->observer, NULL);
+	ph_exit(table);
 }
 
 int	main(int argc, char **argv)
