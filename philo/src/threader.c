@@ -22,6 +22,8 @@ void	ph_join_threads(t_table *table)
 		pthread_join(table->philos[i]->thread, NULL);
 		i++;
 	}
+	if (table->n_philos > 1)
+		pthread_join(table->observer, NULL);
 }
 
 bool	ph_create_threads(t_table *table)
