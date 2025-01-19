@@ -9,12 +9,12 @@ RED         = \033[0;91m
 
 # -=-=-=-=-    NAME -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
 
-NAME        := philo_bonus.c
+NAME        := philo_bonus
 
 # -=-=-=-=-    FLAG -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
 
 CC          = cc
-FLAGS       = -Werror -Wall -Wextra -g -fsanitize=address
+FLAGS       = -Werror -Wall -Wextra -g #-fsanitize=address
 DFLAGS      = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 
 # -=-=-=-=-    PATH -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
@@ -23,7 +23,12 @@ RM          = rm -fr
 
 # -=-=-=-=-    FILES -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
 
-SRC         := main_bonus.c
+SRC         := main_bonus.c			\
+				parser_bonus		\
+				utils_bonus.c		\
+				timer_bonus.c		\
+				initializer_bonus.c	\
+
 
 SRCDIR      = src
 SRCS        = $(addprefix $(SRCDIR)/, $(SRC))
@@ -47,7 +52,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Linking $(NAME)!$(DEF_COLOR)"
 	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled in $(RED)BONUS MODE$(GREEN)!$(DEF_COLOR)"
-	@echo "$(RED)Death is not defeat.$(DEF_COLOR)"
+	@echo "$(RED)Do you remember, my friend, when you told me hope is a prison?$(DEF_COLOR)"
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
