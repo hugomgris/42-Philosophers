@@ -87,6 +87,7 @@ typedef enum e_status
 }	t_status;
 
 //PARSING functions
+void			ph_arg_error(void);
 int				ph_parser(char **argv);
 int				ph_check_philos(char *philos);
 int				ph_check_times(char *die, char *eat, char *sleep);
