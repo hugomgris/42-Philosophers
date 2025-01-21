@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/21 10:03:12 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:53:49 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	*ph_observe(void *arg)
 	while (42)
 	{
 		current_time = ph_get_time();
+		pthread_mutex_lock(&philo->m_meal);
 		death_time = philo->next_meal;
+		pthread_mutex_unlock(&philo->m_meal);
 		if (current_time + 1 > death_time)
 		{
 			sem_wait(philo->table->print_sem);
@@ -68,3 +70,4 @@ void	*ph_observe(void *arg)
 	}
 	return (NULL);
 }
+

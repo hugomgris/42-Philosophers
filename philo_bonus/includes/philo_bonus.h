@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/20 13:58:38 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:53:30 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
-	pid_t	pid;
-	int		id;
-	int		is_dead;
-	int		meals_eaten;
-	time_t	t_eat;
-	time_t	next_meal;
-	t_table	*table;
+	pid_t			pid;
+	int				id;
+	int				is_dead;
+	int				meals_eaten;
+	time_t			t_eat;
+	time_t			next_meal;
+	t_table			*table;
+	pthread_mutex_t	m_meal;
 }	t_philo;
 
 typedef struct s_table
