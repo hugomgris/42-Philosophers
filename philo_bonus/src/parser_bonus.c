@@ -1,17 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 12:12:29 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/17 12:12:33 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:57:12 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
+/*
+Checks if the number of philosophers is valid.
+Converts the input string to an integer and ensures it is within 1 to 200.
+Prints an error message if the number of philosophers is invalid.
+Returns 1 if the input is invalid, otherwise returns 0.
+*/
 int	ph_check_philos(char *philos)
 {
 	int		value;
@@ -33,6 +39,12 @@ int	ph_check_philos(char *philos)
 	return (0);
 }
 
+/*
+Checks if the time values for dying, eating, and sleeping are valid.
+Converts the input strings to integers and ensures they are +60 ms.
+Prints an error message if any time value is invalid.
+Returns 1 if any input is invalid, otherwise returns 0.
+*/
 int	ph_check_times(char *die, char *eat, char *sleep)
 {
 	int		t_die;
@@ -58,6 +70,12 @@ int	ph_check_times(char *die, char *eat, char *sleep)
 	return (0);
 }
 
+/*
+Checks if the number of meals is valid.
+Converts the input string to an integer and ensures it is non-negative.
+Prints an error message if the number of meals is invalid.
+Returns 1 if the input is invalid, otherwise returns 0.
+*/
 int	ph_check_meals(char *meals)
 {
 	int		n_meals;
@@ -74,6 +92,12 @@ int	ph_check_meals(char *meals)
 	return (0);
 }
 
+/*
+Checks if the command-line arguments contain only numeric values.
+Iterates through the arguments and verifies that each one is a valid number.
+Prints an error message if any argument contains non-numeric characters.
+Returns 1 if any argument is invalid, otherwise returns 0.
+*/
 int	ph_check_syntax(char **argv)
 {
 	int		i;
@@ -92,6 +116,12 @@ int	ph_check_syntax(char **argv)
 	return (0);
 }
 
+/*
+Validates all command-line arguments for the simulation.
+Calls helper functions to check the syntax:
+	number of philosophers, times, and meals.
+Returns 1 if any argument is invalid, otherwise returns 0.
+*/
 int	ph_parser(char **argv)
 {
 	int	check;

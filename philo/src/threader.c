@@ -6,12 +6,15 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/18 10:46:31 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:15:27 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*
+Joins threads before ending execution (cleanup step).
+*/
 void	ph_join_threads(t_table *table)
 {
 	int	i;
@@ -26,6 +29,9 @@ void	ph_join_threads(t_table *table)
 		pthread_join(table->observer, NULL);
 }
 
+/*
+Creates threads and assigns their entry point to ph_routine.
+*/
 bool	ph_create_threads(t_table *table)
 {
 	int	i;

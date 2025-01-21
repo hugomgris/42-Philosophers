@@ -6,12 +6,16 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/18 11:12:38 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:11:23 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*
+Prints specific input error: wrong arguments.
+Just wanted to print it with colors, what can I say.
+*/
 void	ph_arg_error(void)
 {
 	char	*error;
@@ -27,6 +31,11 @@ void	ph_arg_error(void)
 	write(2, error, ph_strlen(error));
 }
 
+/*
+Starts simulation.
+Calls for thread creation.
+If there are more than 1 philo, creates the observer thread.
+*/
 bool	ph_start(t_table *table)
 {
 	table->t_start = ph_get_time() + (table->n_philos * 2 * 10);
@@ -43,14 +52,14 @@ bool	ph_start(t_table *table)
 	return (true);
 }
 
-void	ph_stop(t_table *table)
-{
-	ph_join_threads(table);
-	if (table->n_philos > 1)
-		pthread_join(table->observer, NULL);
-	ph_exit(table);
-}
-
+/*
+Main function. 
+Calls arg checking and parsing.
+Calls table init (which inits also philos).
+Calls simulation start.
+Calls function that joins threads when simulation ends.
+Calls exit function.
+*/
 int	main(int argc, char **argv)
 {
 	t_table	*table;
@@ -66,11 +75,8 @@ int	main(int argc, char **argv)
 	if (table == NULL)
 		exit(1);
 	if (ph_start(table) == false)
-	{
-		ph_exit(table);
-		exit (1);
-	}
+		ph_exit(table, 1);
 	ph_join_threads(table);
-	ph_exit(table);
+	ph_exit(table, 0);
 	return (0);
 }

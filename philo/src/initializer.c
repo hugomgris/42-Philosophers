@@ -6,12 +6,15 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/18 13:29:38 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:14:38 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*
+Initializes forks: mem alloc, pthread init.
+*/
 pthread_mutex_t	*ph_init_forks(t_table *table)
 {
 	pthread_mutex_t	*forks;
@@ -30,12 +33,19 @@ pthread_mutex_t	*ph_init_forks(t_table *table)
 	return (forks);
 }
 
+/*
+Assigns left and right forks to each philo.
+*/
 void	ph_give_forks(t_philo *philo)
 {
 	philo->fork_left = (philo->id - 1) % philo->table->n_philos;
 	philo->fork_right = philo->id % philo->table->n_philos;
 }
 
+/*
+Initializes mutexes via pthread.h functions.
+Calls for for initialization.
+*/
 bool	ph_init_mutexes(t_table *table)
 {
 	table->f_locks = ph_init_forks(table);
@@ -50,6 +60,11 @@ bool	ph_init_mutexes(t_table *table)
 	return (true);
 }
 
+/*
+Initializes philos: mem alloc, base values, ids.
+Calls function that gives out forks, following the
+	subject required structure (left and right forks).
+*/
 t_philo	**ph_init_philos(t_table *table)
 {
 	t_philo	**philos;
@@ -75,6 +90,11 @@ t_philo	**ph_init_philos(t_table *table)
 	return (philos);
 }
 
+/*
+Initializes the table: mem alloc, base values.
+Calls for philo and mutex init.
+Sets stop flag to an initial value of false.
+*/
 t_table	*ph_init_table(char **argv)
 {
 	t_table	*table;

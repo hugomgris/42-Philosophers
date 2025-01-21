@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/18 11:12:35 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:22:28 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void			ph_join_threads(t_table *table);
 void			ph_error(const char *msg, t_table *table);
 void			ph_cleanup_table(t_table *table);
 void			ph_cleanup_mutexes(t_table *table);
-void			ph_exit(t_table *table);
+void			ph_exit(t_table *table, int code);
 
 //TIMER functions
 time_t			ph_get_time(void);
@@ -132,6 +132,7 @@ bool			ph_check_simulation_end(t_table *table);
 //SIMULATION function
 void			*ph_routine(void *arg);
 void			*ph_one_philosopher(t_philo *philo);
+void			ph_think(t_philo *philo);
 void			ph_sleep(t_table *table, time_t t_sleep);
 void			ph_eat_and_sleep(t_philo *philo);
 

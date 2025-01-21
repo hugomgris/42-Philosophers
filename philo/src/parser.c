@@ -6,12 +6,15 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 12:12:29 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/17 12:12:33 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:29:40 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*
+Checks that number of philos is in between 1 (min) and 200 (max).
+*/
 int	ph_check_philos(char *philos)
 {
 	int		value;
@@ -33,6 +36,10 @@ int	ph_check_philos(char *philos)
 	return (0);
 }
 
+/*
+Checks values of times sent as arguments.
+Times must be between 60 and INT_MAX ms.
+*/
 int	ph_check_times(char *die, char *eat, char *sleep)
 {
 	int		t_die;
@@ -58,6 +65,9 @@ int	ph_check_times(char *die, char *eat, char *sleep)
 	return (0);
 }
 
+/*
+Check if max meals is a positive integer that doesn't overflow an INT.
+*/
 int	ph_check_meals(char *meals)
 {
 	int		n_meals;
@@ -74,6 +84,9 @@ int	ph_check_meals(char *meals)
 	return (0);
 }
 
+/*
+Checks syntax of arguments (only numbers are allowed).
+*/
 int	ph_check_syntax(char **argv)
 {
 	int		i;
@@ -92,6 +105,9 @@ int	ph_check_syntax(char **argv)
 	return (0);
 }
 
+/*
+Main parsing function that calls every check function in sequence.
+*/
 int	ph_parser(char **argv)
 {
 	int	check;

@@ -6,12 +6,15 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/18 13:35:10 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/21 09:44:27 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*
+Checks if the stop flags is risen.
+*/
 bool	ph_check_simulation_end(t_table *table)
 {
 	bool	check;
@@ -24,6 +27,9 @@ bool	ph_check_simulation_end(t_table *table)
 	return (check);
 }
 
+/*
+Sets stop flag (in table struct) to the sent argument value.
+*/
 void	ph_rise_stop_flag(t_table *table, bool state)
 {
 	pthread_mutex_lock(&table->stop_lock);
@@ -31,6 +37,10 @@ void	ph_rise_stop_flag(t_table *table, bool state)
 	pthread_mutex_unlock(&table->stop_lock);
 }
 
+/*
+Kills a philo if it's time to die has come.
+This means: time since last meal exceeds time to die.
+*/
 bool	ph_kill(t_philo *philo)
 {
 	time_t	time;
@@ -46,6 +56,12 @@ bool	ph_kill(t_philo *philo)
 	return (false);
 }
 
+/*
+Observing loop.
+Checks if killing function has taken a life.
+Checks if max meals value has been reached by all philos.
+The meal mutex is used so that no philo eats after death.
+*/
 bool	ph_observe(t_table *table)
 {
 	int		i;
@@ -74,6 +90,11 @@ bool	ph_observe(t_table *table)
 	return (false);
 }
 
+/*
+Observer thread point of entry.
+Makes sure that stop flag is false at start.
+Calls observing loop after start delay.
+*/
 void	*ph_observer(void *arg)
 {
 	t_table	*table;

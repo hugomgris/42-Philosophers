@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/15 12:00:45 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:58:38 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 
 # include <unistd.h>
 
-#endif
-
-#ifndef PHILO_H
-# define PHILO_H
-
 # include <unistd.h>
 # include <stdio.h>
 # include <pthread.h>
@@ -27,6 +22,8 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <sys/wait.h>
+# include <pthread.h>
 # include <semaphore.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -51,11 +48,7 @@
 
 //ERROR MSGS
 # define MALLOC_ERR "[philo] Error: Memory allocation failed\n"
-# define FORK_INIT_ERR "[philo] Error: Mutex failed: fork init\n"
-# define FLAG_ERR "[philo] Error: Mutex failed: stop flag\n"
-# define P_LOCK_ERR "[philo] Error: Mutex failed: print lock\n"
-# define MEAL_ERR "[philo] Error: Mutex failed: meal lock\n"
-# define THREAD_ERR "[philo] Error: Thread creation failed\n"
+# define SEM_ERR "[philo] Error: Semaphore creation failed\n"
 
 typedef struct s_table	t_table;
 
@@ -88,7 +81,6 @@ typedef struct s_table
 	t_philo	**philos;
 }	t_table;
 
-
 typedef enum e_status
 {
 	DEAD = 0,
@@ -112,20 +104,34 @@ int		ph_isdigit_str(const char *str);
 
 //INIT functions
 t_table	*ph_init_table(char **argv);
-
+bool	ph_init_sems(t_table *table);
+t_philo	**ph_init_philos(t_table *table);
 
 //EXITING functions
-
+void	ph_exit(t_table *table, int code);
+void	ph_cleanup_semaphores(t_table *table);
+void	ph_cleanup_table(t_table *table);
+void	ph_end_processes(t_table *table);
+void	ph_error(const char *msg, t_table *table);
+void	ph_end_processes(t_table *table);
 
 //TIMER functions
 time_t	ph_get_time(void);
 void	ph_delay(time_t t_start);
 
 //PRINTER functions
-void	ph_process_status(t_philo *philo, bool death, t_status status);
+void	ph_process_status(t_philo *philo, t_status status);
 void	ph_print_status(t_philo *philo, char *status);
 
+//SIMULATION functions
+bool	ph_start(t_table *table);
+void	ph_routine(t_philo *philo);
+void	ph_take_fork(t_philo *philo);
+void	ph_sleep(t_philo *philo);
+void	ph_eat(t_philo *philo);
 
-//SIMULATION function
+//OBSERVER functions
+void	*ph_observe(void *arg);
+void	ph_monitor_processes(t_table *table);
 
 #endif

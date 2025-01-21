@@ -23,12 +23,15 @@ RM          = rm -fr
 
 # -=-=-=-=-    FILES -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
 
-SRC         := main_bonus.c			\
-				parser_bonus		\
-				utils_bonus.c		\
-				timer_bonus.c		\
-				initializer_bonus.c	\
-
+SRC         := main_bonus.c				\
+				utils_bonus.c			\
+				parser_bonus.c			\
+				initializer_bonus.c		\
+				timer_bonus.c			\
+				exiter_bonus.c			\
+				simulator_bonus.c		\
+				observer_bonus.c		\
+				printer_bonus.c
 
 SRCDIR      = src
 SRCS        = $(addprefix $(SRCDIR)/, $(SRC))
@@ -51,8 +54,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile includes/philo_bonus.h
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Linking $(NAME)!$(DEF_COLOR)"
 	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)$(NAME) compiled in $(RED)BONUS MODE$(GREEN)!$(DEF_COLOR)"
-	@echo "$(RED)Do you remember, my friend, when you told me hope is a prison?$(DEF_COLOR)"
+	@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
+	@echo "$(RED)Do you remember, my friend, when you told me hope is a prison?.$(DEF_COLOR)"
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
