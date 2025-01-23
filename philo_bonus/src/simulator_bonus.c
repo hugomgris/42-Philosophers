@@ -6,7 +6,7 @@
 /*   By: hmunoz-g <hmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 09:56:52 by hmunoz-g          #+#    #+#             */
-/*   Updated: 2025/01/21 11:44:43 by hmunoz-g         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:31:45 by hmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	ph_eat(t_philo *philo)
 	time_t	end_time;
 
 	start_time = ph_get_time();
-	pthread_mutex_lock(&philo->m_meal);
 	philo->next_meal = start_time + philo->table->t_die;
-	pthread_mutex_unlock(&philo->m_meal);
 	end_time = start_time + philo->table->t_eat;
 	ph_process_status(philo, EATING);
 	philo->meals_eaten++;
@@ -80,7 +78,6 @@ void	ph_routine(t_philo *philo)
 {
 	pthread_t		observer;
 
-	pthread_mutex_init(&philo->m_meal, NULL);
 	ph_delay(philo->table->t_start);
 	pthread_create(&observer, NULL, ph_observe, philo);
 	pthread_detach(observer);
@@ -94,4 +91,3 @@ void	ph_routine(t_philo *philo)
 		ph_process_status(philo, THINKING);
 	}
 }
-
